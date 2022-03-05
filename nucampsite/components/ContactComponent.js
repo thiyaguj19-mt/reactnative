@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Text, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Divider } from 'react-native-elements';
 
 function RenderItem (props) {
 
     return (
       <Card title='Contact Information' wrapperStyle={{margin: 20}} >
+      <Divider inset={true} />
         <Text>1 Nucamp Way</Text>
         <Text>Seattle, WA 98001</Text>
         <Text style={{marginBottom: 10}}>U.S.A.</Text>
