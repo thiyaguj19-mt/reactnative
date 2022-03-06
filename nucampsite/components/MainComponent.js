@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import Directory from './DirectoryComponent';
 import { CAMPSITES  } from '../shared/campsites';
 import CampsiteInfo from './CampsiteInfoComponent';
-import { View, Platform, StyleSheet } from 'react-native';
+import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Constants from 'expo-constants';
 import Home from './HomeComponent';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import { Icon } from 'react-native-elements';
+import SafeAreaView from 'react-native-safe-area-view';
 
 const DirectoryNavigator = createStackNavigator(
     {
