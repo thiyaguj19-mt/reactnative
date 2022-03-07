@@ -12,6 +12,15 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
+import { connect } from 'react-redux';
+import { fetchComments, fetchCampsites, fetchPromotions, fetchPartners } from './redux/ActionCreators';
+
+const mapDispatchToProps = {
+    fetchComments,
+    fetchCampsites,
+    fetchPromotions,
+    fetchPartners
+}
 
 const DirectoryNavigator = createStackNavigator(
     {
@@ -192,6 +201,13 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
 
+    componentDidMount() {
+        this.props.fetchComments();
+        this.props.fetchPartners();
+        this.props.fetchCampsites();
+        this.props.fetchPromotions();
+    }
+
     render() {
         return (
           <View
@@ -234,4 +250,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);

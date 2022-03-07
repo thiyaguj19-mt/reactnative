@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, ScrollView } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { CAMPSITES } from '../shared/campsites';
-import { COMMENTS } from '../shared/comments';
+import { connect } from 'react-redux';
+import { baseUrl } from './shared/baseUrl';
+
+const mapStateToProps = state => {
+  return {
+    comments : state.comments,
+    campsites : state.campsites,
+  }
+}
 
 function RenderCampsite(props) {
 
@@ -13,7 +20,7 @@ function RenderCampsite(props) {
         return (
             <Card
                 featuredTitle = {campsite.name}
-                image={require('./images/react-lake.jpg')}
+                image={{ uri : baseUrl + campsite.image }}
             >
                 <Text style={{margin:10}}>
                     {campsite.description}
@@ -60,8 +67,6 @@ class CampsiteInfo extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        campsites : CAMPSITES,
-        comments : COMMENTS,
         favorite : false
       };
     }
@@ -76,7 +81,7 @@ class CampsiteInfo extends Component {
 
     render() {
       const campsiteId = this.props.navigation.getParam('campsiteId');
-      const campsite = this.state.campsites.filter(campsite => campsite.id === campsiteId)[0];
+      const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
       return (
           <ScrollView>
             <RenderCampsite
@@ -84,10 +89,10 @@ class CampsiteInfo extends Component {
               favorite={this.state.favorite}
               markFavorite={()=>this.markFavorite()}
             />
-            <RenderComment comments={this.state.comments.filter(comment=>comment.campsiteId === campsiteId)} />
+            <RenderComment comments={this.props.comments.comments.filter(comment=>comment.campsiteId === campsiteId)} />
           </ScrollView>
       );
     }
 }
 
-export default CampsiteInfo;
+export default connect(mapStateToProps)(CampsiteInfo);
