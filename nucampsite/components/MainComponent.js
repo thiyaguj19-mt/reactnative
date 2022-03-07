@@ -13,7 +13,7 @@ import Contact from './ContactComponent';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchComments, fetchCampsites, fetchPromotions, fetchPartners } from './redux/ActionCreators';
+import { fetchComments, fetchCampsites, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
 
 const mapDispatchToProps = {
     fetchComments,
