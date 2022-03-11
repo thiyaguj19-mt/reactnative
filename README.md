@@ -12,6 +12,8 @@ yarn global add react-devtools@4.8.2
 
 expo install @react-native-community/datetimepicker
 
+expo install react-native-swipe-list-view
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
