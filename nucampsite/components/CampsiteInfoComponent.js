@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
 import { postComment } from '../redux/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
   return {
@@ -27,6 +28,7 @@ function RenderCampsite(props) {
     if (campsite) {
 
         return (
+          <Animatable.View animation='fadeInDown' duration={12000} delay={1000}>
             <Card
                 featuredTitle = {campsite.name}
                 image={{ uri : baseUrl + campsite.image }}
@@ -53,6 +55,7 @@ function RenderCampsite(props) {
                   />
                 </View>
             </Card>
+          </Animatable.View>
         );
     }
     return <View/>
@@ -62,16 +65,18 @@ function RenderComment({comments}) {
 
   const renderCommentItem = ({item}) => {
     return (
-      <View style={{ margin: 10}}>
-        <Text style={{fontSize : 14}}> {item.text}</Text>
-        <Rating
-          startingValue={item.rating}
-          imageSize={10}
-          style={{paddingVertical: '5%', alignItems: 'flex-start'}}
-          readonly
-        />
-        <Text style={{fontSize : 12}}> {`--${item.author}, ${item.date}`}</Text>
-      </View>
+      <Animatable.View animation='fadeInUp' duration={12000} delay={1000}>
+        <View style={{ margin: 10}}>
+          <Text style={{fontSize : 14}}> {item.text}</Text>
+          <Rating
+            startingValue={item.rating}
+            imageSize={10}
+            style={{paddingVertical: '5%', alignItems: 'flex-start'}}
+            readonly
+          />
+          <Text style={{fontSize : 12}}> {`--${item.author}, ${item.date}`}</Text>
+        </View>
+      </Animatable.View>
     );
   }
 
@@ -107,7 +112,7 @@ class CampsiteInfo extends Component {
     }
 
     handleComment(campsiteId) {
-      this.props.postComment(campsiteId, this.state.rating, 
+      this.props.postComment(campsiteId, this.state.rating,
         this.state.author, this.state.text);
     }
 
