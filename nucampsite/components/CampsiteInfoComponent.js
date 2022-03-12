@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, ScrollView,
-  Modal, Button, StyleSheet } from 'react-native';
+  Modal, Button, StyleSheet, Alert,
+  PanResponder } from 'react-native';
 import { Card, Icon, Rating, Input  } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
 import { postComment } from '../redux/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
   return {
@@ -23,10 +25,49 @@ const mapDispatchToProps = {
 function RenderCampsite(props) {
 
     const {campsite} = props;
+    const view = React.createRef();
+    const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
+
+    const panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        view.current.rubberBand(1000)
+        .then(endState => console.log(endState.finished ? 'finished' : 'canceled'));
+      },
+      onPanResponderEnd: (e, gestureState) => {
+        console.log('pan responder end', gestureState);
+        if (recognizeDrag(gestureState)) {
+          Alert.alert(
+            'Add Favorite',
+            'Are you sure you wish to add ' + campsite.name + ' to favorites?',
+            [
+              {
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => console.log("Cancel Pressed")
+              },
+              {
+                text: 'OK',
+                onPress: () => props.favorite ? console.log('Already set as a favorite') : props.markFavorite()
+              }
+            ],
+            { canceable: false }
+          );
+        }
+        return true;
+      },
+    });
 
     if (campsite) {
 
         return (
+          <Animatable.View
+            ref={view}
+            animation='fadeInDown'
+            duration={12000}
+            delay={1000}
+            {...panResponder.panHandlers}
+          >
             <Card
                 featuredTitle = {campsite.name}
                 image={{ uri : baseUrl + campsite.image }}
@@ -53,6 +94,7 @@ function RenderCampsite(props) {
                   />
                 </View>
             </Card>
+          </Animatable.View>
         );
     }
     return <View/>
@@ -62,16 +104,18 @@ function RenderComment({comments}) {
 
   const renderCommentItem = ({item}) => {
     return (
-      <View style={{ margin: 10}}>
-        <Text style={{fontSize : 14}}> {item.text}</Text>
-        <Rating
-          startingValue={item.rating}
-          imageSize={10}
-          style={{paddingVertical: '5%', alignItems: 'flex-start'}}
-          readonly
-        />
-        <Text style={{fontSize : 12}}> {`--${item.author}, ${item.date}`}</Text>
-      </View>
+      <Animatable.View animation='fadeInUp' duration={12000} delay={1000}>
+        <View style={{ margin: 10}}>
+          <Text style={{fontSize : 14}}> {item.text}</Text>
+          <Rating
+            startingValue={item.rating}
+            imageSize={10}
+            style={{paddingVertical: '5%', alignItems: 'flex-start'}}
+            readonly
+          />
+          <Text style={{fontSize : 12}}> {`--${item.author}, ${item.date}`}</Text>
+        </View>
+      </Animatable.View>
     );
   }
 
@@ -107,7 +151,7 @@ class CampsiteInfo extends Component {
     }
 
     handleComment(campsiteId) {
-      this.props.postComment(campsiteId, this.state.rating, 
+      this.props.postComment(campsiteId, this.state.rating,
         this.state.author, this.state.text);
     }
 
