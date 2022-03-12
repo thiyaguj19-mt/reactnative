@@ -27,6 +27,9 @@ function RenderCampsite(props) {
     const {campsite} = props;
     const view = React.createRef();
     const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
+    const recognizeComment = ({dx}) => (dx > 200) ? true : false;
+    console.log("recognizeDrag: " + recognizeDrag);
+    console.log("recognizeComment: " + recognizeComment);
 
     const panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -53,6 +56,8 @@ function RenderCampsite(props) {
             ],
             { canceable: false }
           );
+        } else if (recognizeComment (gestureState)) {
+          props.onShowModal();
         }
         return true;
       },
@@ -104,7 +109,8 @@ function RenderComment({comments}) {
 
   const renderCommentItem = ({item}) => {
     return (
-      <Animatable.View animation='fadeInUp' duration={12000} delay={1000}>
+      <Animatable.View 
+        animation='fadeInUp' duration={12000} delay={1000}>
         <View style={{ margin: 10}}>
           <Text style={{fontSize : 14}}> {item.text}</Text>
           <Rating
