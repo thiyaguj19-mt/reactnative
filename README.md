@@ -16,6 +16,8 @@ expo install react-native-swipe-list-view
 
 expo install react-native-animatable
 
+expo install redux-persist@5.9.1
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
