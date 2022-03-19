@@ -18,6 +18,8 @@ expo install react-native-animatable
 
 expo install redux-persist@5.9.1
 
+expo install expo-secure-store
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
