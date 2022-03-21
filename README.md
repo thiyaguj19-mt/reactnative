@@ -24,6 +24,8 @@ expo install expo-notifications@~0.3.3
 
 expo install expo-mail-composer
 
+expo install expo-image-picker@8 react-navigation-tabs expo-permissions@9
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
