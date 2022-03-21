@@ -20,6 +20,8 @@ expo install redux-persist@5.9.1
 
 expo install expo-secure-store
 
+expo install expo-notifications@~0.3.3
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
