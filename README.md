@@ -22,6 +22,8 @@ expo install expo-secure-store
 
 expo install expo-notifications@~0.3.3
 
+expo install expo-mail-composer
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
