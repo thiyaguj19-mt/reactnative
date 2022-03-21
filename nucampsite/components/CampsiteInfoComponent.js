@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, ScrollView,
   Modal, Button, StyleSheet, Alert,
-  PanResponder } from 'react-native';
+  PanResponder, Share } from 'react-native';
 import { Card, Icon, Rating, Input  } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -63,6 +63,16 @@ function RenderCampsite(props) {
       },
     });
 
+    const shareCampsite = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: `${title}: ${message} ${url}`,
+            url: url
+          },{
+              dialogTitle: 'Share ' + title
+          });
+        };
+
     if (campsite) {
 
         return (
@@ -97,6 +107,14 @@ function RenderCampsite(props) {
                     reverse
                     onPress={ () => props.onShowModal()}
                   />
+                  <Icon
+                      name={'share'}
+                      type='font-awesome'
+                      color='#5637DD'
+                      raised
+                      reverse
+                      onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+                  />
                 </View>
             </Card>
           </Animatable.View>
@@ -109,7 +127,7 @@ function RenderComment({comments}) {
 
   const renderCommentItem = ({item}) => {
     return (
-      <Animatable.View 
+      <Animatable.View
         animation='fadeInUp' duration={12000} delay={1000}>
         <View style={{ margin: 10}}>
           <Text style={{fontSize : 14}}> {item.text}</Text>
