@@ -286,34 +286,36 @@ const Login = createBottomTabNavigator(
 );
 
 const styles = StyleSheet.create({
-  container : {
-    justifyContent : 'center',
-    margin : 20
-  },
-  formIcon : {
-    marginRight : 10
-  },
-  formButton : {
-    margin : 40
-  },
-  formInput : {
-    padding : 10,
-  },
-  formCheckbox : {
-    margin : 10,
-    backgroundColor : null
-  },
-  imageContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      margin: 10
-  },
-  image: {
-      width: 60,
-      height: 60
-  }
+    container: {
+        justifyContent: 'center',
+        margin: 10
+    },
+    formIcon: {
+        marginRight: 10
+    },
+    formInput: {
+        padding: 8
+    },
+    formCheckbox: {
+        margin: 8,
+        backgroundColor: null
+    },
+    formButton: {
+        margin: 20,
+        marginRight: 40,
+        marginLeft: 40
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        margin: 10
+    },
+    image: {
+        width: 60,
+        height: 60
+    }
 });
 
 export default Login;

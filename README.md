@@ -26,6 +26,8 @@ expo install expo-mail-composer
 
 expo install expo-image-picker@8 react-navigation-tabs expo-permissions@9
 
+expo install @react-native-community/netinfo@5
+
 ### start json-server
 
 json-server -H 0.0.0.0 --watch db.json -p 3001 -d 2000
